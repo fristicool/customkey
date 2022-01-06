@@ -4,6 +4,10 @@ const stripe = require('stripe')("sk_test_51JT2igLjJlE6s6hjibJ40WjiKsTzBeapzMhH7
 var bodyParser = require('body-parser');
 const crypto = require("crypto")
 
+var cors=require('cors');
+
+app.use(cors({origin:true,credentials: true}));
+
 const port = process.env.PORT || 4242
 const domainUrl = process.env.DOMAINURL || 'http://localhost:4200/'
 
