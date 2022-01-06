@@ -1,0 +1,73 @@
+{"products":[
+    {
+        "id":0,
+        "name": "Custom Two Color - Inner, Outer",
+        "description": "Create a keyboard that fits your needs of color for you or your friends.",
+        "price": 129.99,
+        "price_unit": "eur",
+        "shop_image": "assets/Red&Blue-shop-image.png",
+        "image": "assets/Red&Blue.png",
+        "delivery_estimate_minimum": 10,
+        "delivery_estimate_maximum": 44
+    },
+    {
+        "id":1,
+        "name": "Coral Sea",
+        "price": 99.99,
+        "description": "This keyboard has a beatifull sea design mixed with a Japaneese drawing style.",
+        "price_unit": "eur",
+        "image": "assets/CoralSea.png",
+        "delivery_estimate_minimum": 22,
+        "delivery_estimate_maximum": 44
+    },
+    {
+        "id":2,
+        "name": "Rainbow Blue",
+        "price": 89.99,
+        "description": "A rainbow keyboard with blue color palette",
+        "price_unit": "eur",
+        "image": "assets/RainbowBlue.png",
+        "delivery_estimate_minimum": 22,
+        "delivery_estimate_maximum": 44
+    },
+    {
+        "id":3,
+        "name": "Rainbow",
+        "price": 89.99,
+        "description": "A rainbow keyboard with a normal rainbow color palette",
+        "price_unit": "eur",
+        "image": "assets/Rainbow.png",
+        "delivery_estimate_minimum": 22,
+        "delivery_estimate_maximum": 44
+    },
+    {
+        "id":4,
+        "name": "Rainbow Purple",
+        "price": 89.99,
+        "description": "A rainbow keyboard with purple color palette",
+        "price_unit": "eur",
+        "image": "assets/RainbowPurple.png",
+        "delivery_estimate_minimum": 22,
+        "delivery_estimate_maximum": 44
+    },
+    {
+        "id":5,
+        "name": "Purple White",
+        "price": 85.99,
+        "description": "A two color palette a purple outer and a white inner",
+        "price_unit": "eur",
+        "image": "assets/PurpleWhite.png",
+        "delivery_estimate_minimum": 10,
+        "delivery_estimate_maximum": 20
+    },
+    {
+        "id":6,
+        "name": "Japanese Drawing",
+        "price": 99.99,
+        "description": "A Japanese Drawing style keyboard",
+        "price_unit": "eur",
+        "image": "assets/JapaneseDrawing.png",
+        "delivery_estimate_minimum": 10,
+        "delivery_estimate_maximum": 20
+    }
+]}
