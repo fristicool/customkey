@@ -1,8 +1,20 @@
 const express = require('express');
 const app = express();
-const stripe = require('stripe')("sk_test_51JT2igLjJlE6s6hjibJ40WjiKsTzBeapzMhH7AqXfwqj1u9rxNnqcUAocs1mABGqarAbp3fVvxIXkw2k5gmOMTZ600zXhoftCg");
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 var bodyParser = require('body-parser');
 const crypto = require("crypto")
+const nodemailer = require('nodemailer');
+
+const emailPassword = process.env.EMAIL_PASSWORD
+
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    auth: {
+        user: "lucas1.theys@gmail.com",
+        pass: emailPassword
+    }
+})
 
 var cors=require('cors');
 
@@ -80,12 +92,43 @@ app.post('/webhook', express.json({ type: 'application/json' }), (req, res) => {
 
     // Handle the event
     switch (event.type) {
-        case 'payment_intent.succeeded':
+        case 'checkout.session.completed':
             const paymentIntent = event.data.object;
 
             console.log(paymentIntent)
             // Then define and call a method to handle the successful payment intent.
             // handlePaymentIntentSucceeded(paymentIntent);
+
+            message_to_customer = {
+                from: "lucas1.theys@gmail.com",
+                to: paymentIntent.customer_details.email,
+                subject: "Purchase - Keyboard-master.be",
+                text: "We are working on your order \n thanks for shopping at our shop"
+            }
+
+            message_to_me = {
+                from: "lucas1.theys@gmail.com",
+                to: "customkey.keyboards@gmail.com",
+                subject: "new customer",
+                text: paymentIntent.payment_intent
+            }
+            
+            transporter.sendMail(message_to_customer, function(err, info) {
+                if (err) {
+                  console.log(err)
+                } else {
+                  console.log("send mail");
+                }
+            })
+
+            transporter.sendMail(message_to_me, function(err, info) {
+                if (err) {
+                  console.log(err)
+                } else {
+                  console.log("send mail");
+                }
+            })
+
             break;
         case 'payment_method.attached':
             const paymentMethod = event.data.object;
