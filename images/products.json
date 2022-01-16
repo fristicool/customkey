@@ -14,7 +14,7 @@
         "id":1,
         "name": "Coral Sea",
         "price": 99.99,
-        "description": "This keyboard has a beatifull sea design mixed with a Japaneese drawing style.",
+        "description": "This keyboard has a beatiful sea design mixed with a Japanese drawing style.",
         "price_unit": "eur",
         "image": "https://customkey.herokuapp.com/static/CoralSea.png",
         "delivery_estimate_minimum": 22,

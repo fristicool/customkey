@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY || "sk_test_51JT2igLjJlE6s6hjibJ40WjiKsTzBeapzMhH7AqXfwqj1u9rxNnqcUAocs1mABGqarAbp3fVvxIXkw2k5gmOMTZ600zXhoftCg");
 var bodyParser = require('body-parser');
 const crypto = require("crypto")
 const nodemailer = require('nodemailer');
@@ -17,8 +17,14 @@ let transporter = nodemailer.createTransport({
 })
 
 var cors=require('cors');
+const req = require('express/lib/request');
+const res = require('express/lib/response');
+const console = require('console');
+const { fstat } = require('fs');
 
-app.use(cors({origin:true,credentials: true}));
+app.use(cors());
+
+app.use('/static', express.static('./images'));
 
 const port = process.env.PORT || 4242
 const domainUrl = process.env.DOMAINURL || 'http://localhost:4200/'
@@ -47,35 +53,24 @@ app.post('/create-checkout-session', async (req, res) => {
                 shipping_rate_data: {
                     type: 'fixed_amount',
                     fixed_amount: {
-                        amount: process.env.SHIPPINGPRICE,
+                        amount: process.env.SHIPPINGPRICE || 1999,
                         currency: 'eur',
                     },
                     display_name: 'Shipping',
                     delivery_estimate: {
                         minimum: {
                             unit: 'business_day',
-                            value: req.body.delivery_estimate_minimum,
+                            value: 10,
                         },
                         maximum: {
                             unit: 'business_day',
-                            value: req.body.delivery_estimate_maximum,
+                            value: 20,
                         },
                     }
                 },
             },
         ],
-        line_items: [
-            {
-                price_data: {
-                    currency: 'eur',
-                    product_data: {
-                        name: req.body.name,
-                    },
-                    unit_amount: req.body.price * 100,
-                },
-                quantity: 1,
-            },
-        ],
+        line_items: req.body.object,
         mode: 'payment',
         success_url: `${domainUrl}succes`,
         cancel_url: `${domainUrl}failure`,
@@ -162,5 +157,10 @@ app.post('/isoutofstock', (req, res) => {
     res.send({data: products[req.body.id]})
 })
 
+app.get('/products', (req, res) => {
+    console.log(JSON.parse(process.env.PRODUCT_JSON))
+
+    res.send(JSON.parse(process.env.PRODUCT_JSON))
+})
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
